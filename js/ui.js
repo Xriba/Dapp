@@ -95,7 +95,7 @@ $(function() {
             if($("#ethAddress input").val()=="0x8f3ef3d07834056a22f08f153b3116f340392c77"){
                 step2(false)
             }else{
-                step2(true) //TODO: now passing true to test step2 but in production need to pass false
+                step2(false) //TODO: now passing true to test step2 but in production need to pass false
             }
 
           }
