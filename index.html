@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Xriba
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS Start -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700|Open+Sans" />
+
+    <link href="css/main.css" rel="stylesheet">
+    <!-- CSS End -->
+
+
+
+
+    <!-- JS Start -->
+    <script type="text/javascript" src="js/contractAbi.js"></script>
+    <script type="text/javascript" src="js/localStorage.js"></script>
+
+    <script type="text/javascript" src="js/web3.min.js"></script>
+    <script type="text/javascript" src="js/instascan.min.js"></script>
+    <script type="text/javascript" src="js/coincrowd-iife.js"></script>
+    <script src="js/jquery.js"></script>
+
+    <script type="text/javascript">
+      //var web3provider = "https://mainnet.infura.io/"
+      var web3provider = "https://ropsten.infura.io/"
+      var contractAddress = "0xb7c4e72621fb04156febbAe09Fe59F9748485a5d"
+      var rcTitle = "Pre-Sale"
+
+    </script>
+    <script type="text/javascript" src="js/web3-utils.js"></script>
+    <!-- JS End -->
+
+  </head>
+
+  <body>
+    <div class="overlay"><div class="loading"></div></div>
+
+    <span class="currentWallet metamask">
+      Current wallet
+      <img src="images/metamask.png" alt="" class="wallet">
+      Metamask
+    </span>
+    <span class="currentWallet coincrowd">
+      Current wallet
+      <img src="images/coincrowd.png" alt="" class="wallet">
+      CoinCrowd
+    </span>
+    <span class="currentWallet other">
+      Current wallet
+      <img src="images/otherWallet.png" alt="" class="wallet">
+      Other...
+    </span>
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+
+          <a target="_blank" class="navbar-brand" href="https://xriba.com/">
+            <img src="images/logo-xriba.png" alt="" class="logo">
+          </a>
+        </div>
+        <div id="navbar" class="">
+          <ul class="nav navbar-nav">
+            <!--
+            <li class=""><a class="home" href="index.html">Home</a></li>
+            <li class=""><a class="howto" href="howto.html">How To</a></li>
+            <li class=""><a class="help" href="#" target="_blank">Help?</a></li>
+            -->
+          </ul>
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="walletList" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="walletListLabel">
+              List of the supported wallets
+            </h4>
+          </div>
+          <div class="modal-body">
+            <p>
+
+              </p>
+            <div dir="ltr" style="margin-left:0pt;">
+              <table style="border:none;border-collapse:collapse">
+                <colgroup>
+                  <col width="42" />
+                  <col width="100%" />
+                </colgroup>
+                <tbody>
+
+                  <tr style="height:35pt">
+                    <td style="border-left:solid #d9d9d9 1pt;border-right:solid #d9d9d9 1pt;border-bottom:solid #d9d9d9 1pt;border-top:solid #d9d9d9 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;">
+                      <p dir="ltr" style="line-height:1.2;margin-top:0pt;margin-bottom:0pt;text-align: center;">
+                        <span id="docs-internal-guid-3a3ede0b-11ea-1688-9d14-37c3a11ba417"><span style="font-size: 11pt; font-family: Arial; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;"><img height="24" src="https://lh6.googleusercontent.com/BXyTAPfV66ZN6PmyaKywivuC0vuJZhIL9Qrz9E_oJp0q0J-FQaTdIMjXzt_Xf7ZkiBSBQ8vv3F1DqTncNGqBHfYNzK3MiH-Ni9abkoeyf4__d7ysk8RSQXcHfVEHHzpoNoGh3zHX" style="border: none; transform: rotate(0.00rad); -webkit-transform: rotate(0.00rad);" width="24" /></span></span></p>
+                    </td>
+                    <td style="border-left:solid #d9d9d9 1pt;border-right:solid #d9d9d9 1pt;border-bottom:solid #d9d9d9 1pt;border-top:solid #d9d9d9 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;">
+                      <p dir="ltr" style="line-height:1.2;margin-top:0pt;margin-bottom:0pt;">
+                        <span id="docs-internal-guid-3a3ede0b-11ea-1688-9d14-37c3a11ba417"><a target="_blank" href="http://coincrowd.it" style="text-decoration-line: none;"><span style="font-size: 11pt; font-family: Arial; color: rgb(17, 85, 204); font-variant-numeric: normal; font-variant-east-asian: normal; text-decoration-line: underline; text-decoration-skip-ink: none; vertical-align: baseline; white-space: pre-wrap;">CoinCrowd</span></a></span></p>
+                    </td>
+                  </tr>
+
+                  <tr style="height:35pt">
+                    <td style="border-left:solid #d9d9d9 1pt;border-right:solid #d9d9d9 1pt;border-bottom:solid #d9d9d9 1pt;border-top:solid #d9d9d9 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;">
+                      <p dir="ltr" style="line-height:1.2;margin-top:0pt;margin-bottom:0pt;text-align: center;">
+                        <span id="docs-internal-guid-3a3ede0b-11ea-1688-9d14-37c3a11ba417"><span style="font-size: 11pt; font-family: Arial; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;"><img height="24" src="https://lh3.googleusercontent.com/kktiOrkzfpjGeLjDA6lCqXlZS2bHw6T6j7sqCU7jtMoW7O7GWamKjR3_neY1pwQnM_VP9-PM2pUX--JcA8uQhsqZHsot2GQ6p27_mh7jtZ3t5bhV04rmya0jTQTaqLqSzKxMrSdj" style="border: none; transform: rotate(0.00rad); -webkit-transform: rotate(0.00rad);" width="24" /></span></span></p>
+                    </td>
+                    <td style="border-left:solid #d9d9d9 1pt;border-right:solid #d9d9d9 1pt;border-bottom:solid #d9d9d9 1pt;border-top:solid #d9d9d9 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;">
+                      <p dir="ltr" style="line-height:1.2;margin-top:0pt;margin-bottom:0pt;">
+                        <span id="docs-internal-guid-3a3ede0b-11ea-1688-9d14-37c3a11ba417"><a target="_blank" href="https://eidoo.io/" style="text-decoration-line: none;"><span style="font-size: 11pt; font-family: Arial; color: rgb(17, 85, 204); font-variant-numeric: normal; font-variant-east-asian: normal; text-decoration-line: underline; text-decoration-skip-ink: none; vertical-align: baseline; white-space: pre-wrap;">EIDOO</span></a></span></p>
+                    </td>
+                  </tr>
+
+                  <tr style="height:35pt">
+                    <td style="border-left:solid #d9d9d9 1pt;border-right:solid #d9d9d9 1pt;border-bottom:solid #d9d9d9 1pt;border-top:solid #d9d9d9 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;">
+                      <p dir="ltr" style="line-height:1.2;margin-top:0pt;margin-bottom:0pt;text-align: center;">
+                        <span id="docs-internal-guid-3a3ede0b-11ea-1688-9d14-37c3a11ba417"><span style="font-size: 11pt; font-family: Arial; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;"><img height="21" src="https://lh5.googleusercontent.com/bt2DaRCJqn-ku5m042yNOwrbkT5W3OPBhV5fih6pbLSa8CmGpZHraYFKNxHgcak1XkQxbdVxDiOQAyYwFqDiRtYkyEH95xSFQzWjQwX73ZwdLq_DncvrnqkUYAggjiiV-xe9mF-f" style="border: none; transform: rotate(0.00rad); -webkit-transform: rotate(0.00rad);" width="24" /></span></span></p>
+                    </td>
+                    <td style="border-left:solid #d9d9d9 1pt;border-right:solid #d9d9d9 1pt;border-bottom:solid #d9d9d9 1pt;border-top:solid #d9d9d9 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;">
+                      <p dir="ltr" style="line-height:1.2;margin-top:0pt;margin-bottom:0pt;">
+                        <span id="docs-internal-guid-3a3ede0b-11ea-1688-9d14-37c3a11ba417"><a target="_blank" href="https://metamask.io/" style="text-decoration-line: none;"><span style="font-size: 11pt; font-family: Arial; color: rgb(17, 85, 204); font-variant-numeric: normal; font-variant-east-asian: normal; text-decoration-line: underline; text-decoration-skip-ink: none; vertical-align: baseline; white-space: pre-wrap;">Metamask</span></a></span></p>
+                    </td>
+                  </tr>
+
+                  <tr style="height:35pt">
+                    <td style="border-left:solid #d9d9d9 1pt;border-right:solid #d9d9d9 1pt;border-bottom:solid #d9d9d9 1pt;border-top:solid #d9d9d9 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;">
+                      <p dir="ltr" style="line-height:1.2;margin-top:0pt;margin-bottom:0pt;text-align: center;">
+                        <span id="docs-internal-guid-3a3ede0b-11ea-1688-9d14-37c3a11ba417"><span style="font-size: 11pt; font-family: Arial; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;"><img height="24" src="https://lh5.googleusercontent.com/RFvbwHfQSFPLgn1NzoufsebQ9vWsmyYSVAzgui2wdxxAnJINSXo6elCoRkZ2utk_0eGz5qHiNSXCQ7S-RAaMkH34KGEatD32Y2kh0V0717Q-4J5PV6w8PADRXQXh94-ZF3xrI_gU" style="border: none; transform: rotate(0.00rad); -webkit-transform: rotate(0.00rad);" width="24" /></span></span></p>
+                    </td>
+                    <td style="border-left:solid #d9d9d9 1pt;border-right:solid #d9d9d9 1pt;border-bottom:solid #d9d9d9 1pt;border-top:solid #d9d9d9 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;">
+                      <p dir="ltr" style="line-height:1.2;margin-top:0pt;margin-bottom:0pt;">
+                        <span id="docs-internal-guid-3a3ede0b-11ea-1688-9d14-37c3a11ba417"><a target="_blank" href="https://mycrypto.com/" style="text-decoration-line: none;"><span style="font-size: 11pt; font-family: Arial; color: rgb(17, 85, 204); font-variant-numeric: normal; font-variant-east-asian: normal; text-decoration-line: underline; text-decoration-skip-ink: none; vertical-align: baseline; white-space: pre-wrap;">MyCrypto</span></a></span></p>
+                    </td>
+                  </tr>
+
+                  <tr style="height:35pt">
+                    <td style="border-left:solid #d9d9d9 1pt;border-right:solid #d9d9d9 1pt;border-bottom:solid #d9d9d9 1pt;border-top:solid #d9d9d9 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;">
+                      <p dir="ltr" style="line-height:1.2;margin-top:0pt;margin-bottom:0pt;text-align: center;">
+                        <span id="docs-internal-guid-3a3ede0b-11ea-1688-9d14-37c3a11ba417"><span style="font-size: 11pt; font-family: Arial; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;"><img height="24" src="https://lh5.googleusercontent.com/TAwcw--TzGBpdGuLnPCANp3a-Z3abtONfZFJ9KPeAOjLLUUz1Vt6RyiQOPpXgDm-7tNb2Iv3WcDqbOOUmM_vg53YEXQwbG06e6XA7vMFKP8X5H0AD4CZfTSU-X3hNfvAIOfRDRbu" style="border: none; transform: rotate(0.00rad); -webkit-transform: rotate(0.00rad);" width="24" /></span></span></p>
+                    </td>
+                    <td style="border-left:solid #d9d9d9 1pt;border-right:solid #d9d9d9 1pt;border-bottom:solid #d9d9d9 1pt;border-top:solid #d9d9d9 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;">
+                      <p dir="ltr" style="line-height:1.2;margin-top:0pt;margin-bottom:0pt;">
+                        <span id="docs-internal-guid-3a3ede0b-11ea-1688-9d14-37c3a11ba417"><a target="_blank" href="https://www.myetherwallet.com/" style="text-decoration-line: none;"><span style="font-size: 11pt; font-family: Arial; color: rgb(17, 85, 204); font-variant-numeric: normal; font-variant-east-asian: normal; text-decoration-line: underline; text-decoration-skip-ink: none; vertical-align: baseline; white-space: pre-wrap;">MyEtherWallet</span></a></span></p>
+                    </td>
+                  </tr>
+
+
+
+
+                  <!--
+                  <tr style="height:35pt">
+                    <td style="border-left:solid #d9d9d9 1pt;border-right:solid #d9d9d9 1pt;border-bottom:solid #d9d9d9 1pt;border-top:solid #d9d9d9 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;">
+                      <p dir="ltr" style="line-height:1.2;margin-top:0pt;margin-bottom:0pt;text-align: center;">
+                        <span id="docs-internal-guid-3a3ede0b-11ea-1688-9d14-37c3a11ba417"><span style="font-size: 11pt; font-family: Arial; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;"><img height="24" src="https://lh3.googleusercontent.com/_r3HHKFtnInnuqRRvEfBWvQ2ffqazdlVcWl_jv2yRud1YBsbSx-XaYHnpdrPWdMCrx0VzJT__dj96WodYIL_hEYW6pvP8UgbB5bsI-m_q4DPbmAEM4FiJ1R10RqdgJFNcfyNNnjP" style="border: none; transform: rotate(0.00rad); -webkit-transform: rotate(0.00rad);" width="24" /></span></span></p>
+                    </td>
+                    <td style="border-left:solid #d9d9d9 1pt;border-right:solid #d9d9d9 1pt;border-bottom:solid #d9d9d9 1pt;border-top:solid #d9d9d9 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;">
+                      <p dir="ltr" style="line-height:1.2;margin-top:0pt;margin-bottom:0pt;">
+                        <span id="docs-internal-guid-3a3ede0b-11ea-1688-9d14-37c3a11ba417"><a target="_blank" href="https://enjinwallet.io/" style="text-decoration-line: none;"><span style="font-size: 11pt; font-family: Arial; color: rgb(17, 85, 204); font-variant-numeric: normal; font-variant-east-asian: normal; text-decoration-line: underline; text-decoration-skip-ink: none; vertical-align: baseline; white-space: pre-wrap;">Enjin</span></a></span></p>
+                    </td>
+                  </tr>
+                  <tr style="height:35pt">
+                    <td style="border-left:solid #d9d9d9 1pt;border-right:solid #d9d9d9 1pt;border-bottom:solid #d9d9d9 1pt;border-top:solid #d9d9d9 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;">
+                      <p dir="ltr" style="line-height:1.2;margin-top:0pt;margin-bottom:0pt;text-align: center;">
+                        <span id="docs-internal-guid-3a3ede0b-11ea-1688-9d14-37c3a11ba417"><span style="font-size: 11pt; font-family: Arial; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;"><img height="24" src="https://lh5.googleusercontent.com/ZOfi3N7I67B9t46iu7VTeYPBZBDWcXbSWfXUP-cpzMohsYJVO_cI968rPm3zz65jfM7l-QrgaTCKV4byEu-B2UH7b1GxxDxxKNGCfxVFKMLidHAO-6pnJuW0igI3uPBZ5_eHdHZc" style="border: none; transform: rotate(0.00rad); -webkit-transform: rotate(0.00rad);" width="24" /></span></span></p>
+                    </td>
+                    <td style="border-left:solid #d9d9d9 1pt;border-right:solid #d9d9d9 1pt;border-bottom:solid #d9d9d9 1pt;border-top:solid #d9d9d9 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;">
+                      <p dir="ltr" style="line-height:1.2;margin-top:0pt;margin-bottom:0pt;">
+                        <span id="docs-internal-guid-3a3ede0b-11ea-1688-9d14-37c3a11ba417"><a target="_blank" href="https://www.lykke.com/" style="text-decoration-line: none;"><span style="font-size: 11pt; font-family: Arial; color: rgb(17, 85, 204); font-variant-numeric: normal; font-variant-east-asian: normal; text-decoration-line: underline; text-decoration-skip-ink: none; vertical-align: baseline; white-space: pre-wrap;">Lykke</span></a></span></p>
+                    </td>
+                  </tr>
+
+                  <tr style="height:35pt">
+                    <td style="border-left:solid #d9d9d9 1pt;border-right:solid #d9d9d9 1pt;border-bottom:solid #d9d9d9 1pt;border-top:solid #d9d9d9 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;">
+                      <p dir="ltr" style="line-height:1.2;margin-top:0pt;margin-bottom:0pt;text-align: center;">
+                        <span id="docs-internal-guid-3a3ede0b-11ea-1688-9d14-37c3a11ba417"><span style="font-size: 11pt; font-family: Arial; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;"><img height="24" src="https://lh3.googleusercontent.com/vjuRUDypyXmtbtvBkIjz-nGo2fVWmLzw9czdy-Twr3OhPOTxHhaAn8htSA5bzYGPiXrBX6FDScCK8zNsN1e7qBzNBwOiecCVkcXeyugpWsvJ7JklPzKNMr_mQgF5SQmHYsnYcjSg" style="border: none; transform: rotate(0.00rad); -webkit-transform: rotate(0.00rad);" width="24" /></span></span></p>
+                    </td>
+                    <td style="border-left:solid #d9d9d9 1pt;border-right:solid #d9d9d9 1pt;border-bottom:solid #d9d9d9 1pt;border-top:solid #d9d9d9 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;">
+                      <p dir="ltr" style="line-height:1.2;margin-top:0pt;margin-bottom:0pt;">
+                        <span id="docs-internal-guid-3a3ede0b-11ea-1688-9d14-37c3a11ba417"><a target="_blank" href="https://www.ledgerwallet.com/" style="text-decoration-line: none;"><span style="font-size: 11pt; font-family: Arial; color: rgb(17, 85, 204); font-variant-numeric: normal; font-variant-east-asian: normal; text-decoration-line: underline; text-decoration-skip-ink: none; vertical-align: baseline; white-space: pre-wrap;">Ledger Nano S</span></a></span></p>
+                    </td>
+                  </tr>
+                  <tr style="height:35pt">
+                    <td style="border-left:solid #d9d9d9 1pt;border-right:solid #d9d9d9 1pt;border-bottom:solid #d9d9d9 1pt;border-top:solid #d9d9d9 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;">
+                      <p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;text-align: center;">
+                        <span id="docs-internal-guid-3a3ede0b-11ea-1688-9d14-37c3a11ba417"><span style="font-size: 11pt; font-family: Arial; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;"><img height="27" src="https://lh5.googleusercontent.com/Rx_9RtWU2toE4wZws279OG6X59FFE0I9BSaDtOIrP7aaNXX3IT4oazSDQjQEA5XI2zkLhhO1TXTlE2R4xRLKf6_fz1wezFUF4L0tEJeUSa9eyjVoFDFeTWn0r3gi-5XM2JraunvM" style="border: none; transform: rotate(0.00rad); -webkit-transform: rotate(0.00rad);" width="20" /></span></span></p>
+                    </td>
+                    <td style="border-left:solid #d9d9d9 1pt;border-right:solid #d9d9d9 1pt;border-bottom:solid #d9d9d9 1pt;border-top:solid #d9d9d9 1pt;vertical-align:middle;padding:5pt 5pt 5pt 5pt;">
+                      <p dir="ltr" style="line-height:1.2;margin-top:0pt;margin-bottom:0pt;">
+                        <span id="docs-internal-guid-3a3ede0b-11ea-1688-9d14-37c3a11ba417"><a target="_blank" href="https://trezor.io/" style="text-decoration-line: none;"><span style="font-size: 11pt; font-family: Arial; color: rgb(17, 85, 204); font-variant-numeric: normal; font-variant-east-asian: normal; text-decoration-line: underline; text-decoration-skip-ink: none; vertical-align: baseline; white-space: pre-wrap;">Trezor</span></a></span></p>
+                    </td>
+                  </tr>
+                  -->
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="container">
+      <div class="step1">
+        <h1 class="text-center">
+          <script type="text/javascript"> document.write(rcTitle); </script>
+        </h1>
+
+
+        <div id="ethAddressSelected" class="text-center">
+
+          <p class="info">
+            This is your Ethereum address. You can buy XCC token only from this address.
+            <br>
+            Other address will be refused.
+            <br>
+            <input type="text" name="" value="" placeholder="ethAddress" class="form-control" style="background:#ffffff;text-align:center;" readonly>
+            <a href="#" id="changeEthAddress" class="btn btn-primary" style="margin-top:10px;">
+              <i class="fa fa-edit"></i>
+              Change the Ethereum Address
+            </a>
+          </p>
+        </div>
+
+        <div id="ethAddressCheck">
+          <input type="hidden" name="" value="" placeholder="aaa" id="aaa">
+
+
+          <div class="form-group text-center" id="ethAddress">
+          <label for="" class="">
+            Insert the Ethereum address you have used to register at IcoEngine
+          </label>
+          <input type="text" name="" value="" placeholder="ethAddress" class="form-control" style="background:#ffffff;text-align:center;">
+          <p class="text-center bg-danger err">Ethereum address not correct</p>
+          <p class="text-center bg-success ok">Ethereum address is correct</p>
+          </div>
+
+          <div id="notAuthorized">
+            <div class="box">
+              <i class="fa fa-warning"></i>
+              Your address is not Authorized
+              <i class="fa fa-warning"></i>
+
+              <div id="kycNote" class="text-center">
+                If you have not yet register, sing in to <a href="https://icoengine.net/" target="_blank">IcoEngine</a>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+
+
+
+        <div id="walletSelectionBox">
+
+
+
+
+          <div class="text-center">
+
+            <!-- Wallet selection Start -->
+            <div class="walletSelection">
+              <div class="text-center bg-info box-info">
+                <b>
+                  Please select the Ethereum wallet you will use:
+                </b>
+              </div>
+              <div class="row">
+                <div class="col-xs-4">
+                  <a class="item text-center" href="javascript:ls.setWallet('metamask')">
+                    <img src="images/metamask.png" alt="" class="wallet">
+                    <br>
+                    MetaMask
+                  </a>
+
+                  <div class="text-center" style="margin-top:5px;">
+                    <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn" target="_blank">
+                      Downlad MetaMask
+                    </a>
+                    <br>
+                    Chrome Extension
+                  </div>
+
+                </div>
+                <div class="col-xs-4">
+                  <a class="item text-center" href="javascript:ls.setWallet('coincrowd')">
+                    <img src="images/coincrowd.png" alt="" class="wallet">
+                    <br>
+                    CoinCrowd
+                  </a>
+                  <div class="text-center" style="margin-top:5px;">
+                    <a href="https://itunes.apple.com/us/developer/coincrowd-srl/id1342259053?mt=8" target="_blank">
+                      Downlad iOS version
+                    </a>
+                    <br>
+                    <a href="https://play.google.com/store/apps/details?id=com.coincrowd_wallet&hl=it" target="_blank">
+                      Downlad Android Version
+                    </a>
+                  </div>
+                </div>
+
+                <div class="col-xs-4">
+                  <a class="item text-center" href="javascript:ls.setWallet('other')">
+                    <img src="images/otherWallet.png" alt="" class="wallet">
+                    <br>
+                    Other wallet
+                  </a>
+                  <div class="text-center" style="margin-top:5px;">
+                    <a href="#" data-toggle="modal" data-target="#walletList">
+                      Any Ethereum Wallet
+                    </a>
+                    <br>
+                    That support all ERC20 Token
+                  </div>
+                </div>
+              </div>
+
+              <p class="text-center" style="margin-top:30px;">
+                <a href="#" data-toggle="modal" data-target="#walletList" class="btn btn-success">
+                  <i class="fa fa-list"></i>
+                  Check the list of the supported Wallets
+                </a>
+              </p>
+
+
+            </div>
+            <!-- Wallet selection End -->
+
+
+            <!-- Wallet metamask Start -->
+            <div id="metamask">
+              <img src="images/metamask.png" alt="" class="wallet">
+              <b>MetaMask</b>
+              Is your current wallet
+              <a href="#" class="btn btn-primary changeCurrentWallet"> <i class="fa fa-paper-plane-o"></i> Change Wallet </a>
+
+              <button type="button" class="btn btn-lg btn-warning" id="unlockMetamask" style="display:none;">
+                <i class="fa fa-unlock"></i>
+                Unlock or Install Metamask !
+              </button>
+              <div class="text-center bg-danger" style="padding:10px;border-radius:5px;display:none" id="noBalance">
+                <i class="fa fa-warning"></i>
+                You have no ETH on this ethereum address
+              </div>
+
+            </div>
+            <!-- Wallet metamask End -->
+
+            <!-- Wallet coincrowd Start -->
+            <div id="coincrowd">
+              <img src="images/coincrowd.png" alt="" class="wallet">
+              <b>CoinCrowd</b>
+              Is your current wallet
+              <a href="#" class="btn btn-primary changeCurrentWallet"> <i class="fa fa-paper-plane-o"></i> Change Wallet </a>
+
+
+              <div id="coincrowdQR_box">
+                <p style="font-size:12px;">
+                  Now scan the qr Code with the Send option in the CoinCrowd Wallet
+                  <br>
+                  And send the transaction. All the information, GAS and data are setuped automaticaly
+                  by the qr Code.
+                </p>
+                <div id="coincrowdQR"></div>
+              </div>
+
+
+
+            </div>
+            <!-- Wallet coincrowd End -->
+
+            <!-- Wallet coincrowd Start -->
+            <div id="other">
+              <img src="images/otherWallet.png" alt="" style="max-height:60px;">
+              <b>Other</b> is your current wallet
+              <a href="#" class="btn btn-primary changeCurrentWallet"> <i class="fa fa-paper-plane-o"></i> Change Wallet </a>
+            </div>
+            <!-- Wallet coincrowd End -->
+
+
+
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+
+
+
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">
+          Made with <img src="images/love.png" alt="" style="max-width:18px;">
+          By <a href="https://coincrowd.it/" target="_blank"><img src="images/logo-CoinCrowd.png" alt="CoinCrowd" style="max-height:25px;"></a>
+
+        </span>
+      </div>
+    </footer>
+
+    <script src="js/bootstrap.min.js"></script>
+
+
+    <script type="text/javascript" src="js/ui.js"></script>
+
+
+  </body>
+</html>
